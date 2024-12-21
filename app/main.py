@@ -5,21 +5,29 @@ from fastapi.staticfiles import StaticFiles
 from datetime import datetime
 import traceback
 import os
+import pathlib
 
 app = FastAPI()
 
 # الحصول على المسار المطلق للملفات
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TEMPLATES_DIR = os.path.join(BASE_DIR, "app/templates")
-STATIC_DIR = os.path.join(BASE_DIR, "app/static")
+import pathlib
+import os
+
+if os.environ.get('RENDER'):
+    BASE_DIR = pathlib.Path("/opt/render/project/src/app")
+else:
+    BASE_DIR = pathlib.Path(__file__).parent
+
+TEMPLATES_DIR = str(BASE_DIR / "templates")
+STATIC_DIR = str(BASE_DIR / "static")
 
 print(f"Base Directory: {BASE_DIR}")
 print(f"Templates Directory: {TEMPLATES_DIR}")
 print(f"Static Directory: {STATIC_DIR}")
 
 # تكوين القوالب والملفات الثابتة
-templates = Jinja2Templates(directory=TEMPLATES_DIR)
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+templates = Jinja2Templates(directory=TEMPLATES_DIR)
 
 @app.get("/debug")
 async def debug_info():
