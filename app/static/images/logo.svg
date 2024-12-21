@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <style>
+        @font-face {
+            font-family: 'Tajawal';
+            src: local('Tajawal');
+        }
+    </style>
+    
+    <!-- Logo Group -->
+    <g>
+        <!-- Arabic Text -->
+        <text x="10" y="28" font-family="Tajawal" font-size="24" font-weight="bold" fill="currentColor">متماشي</text>
+        
+        <!-- Lightning Icon in Square -->
+        <g transform="translate(120, 4)">
+            <rect x="0" y="0" width="32" height="32" rx="8" stroke="currentColor" stroke-width="2" fill="none"/>
+            <path d="M16 6 L12 16 H20 L16 26" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,134 @@
+:root {
+    --primary-color: #8B5CF6;
+    --secondary-color: #3B82F6;
+    --success-color: #10B981;
+    --background-dark: #1E1E1E;
+    --card-dark: #2D2D2D;
+    --text-primary: #FFFFFF;
+    --text-secondary: #A0AEC0;
+}
+
+body {
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+}
+
+.card {
+    background-color: var(--card-dark);
+    border: none;
+    border-radius: 16px;
+}
+
+.task-card {
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+}
+
+.task-card.purple {
+    background: linear-gradient(45deg, #8B5CF6, #7C3AED);
+}
+
+.task-card.blue {
+    background: linear-gradient(45deg, #3B82F6, #2563EB);
+}
+
+.task-card.green {
+    background: linear-gradient(45deg, #10B981, #059669);
+}
+
+.progress-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.progress-circle::after {
+    content: attr(data-progress) '%';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+}
+
+.search-box {
+    background-color: var(--card-dark);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 12px 16px;
+    color: var(--text-primary);
+}
+
+.search-box:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.calendar-widget {
+    background-color: var(--card-dark);
+    padding: 20px;
+    border-radius: 16px;
+}
+
+.calendar-date {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.subtask-list {
+    list-style: none;
+    padding: 0;
+}
+
+.subtask-item {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    color: var(--text-secondary);
+}
+
+.subtask-item.completed {
+    color: var(--text-primary);
+    text-decoration: line-through;
+}
+
+.avatar-group {
+    display: flex;
+    align-items: center;
+}
+
+.avatar-group img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid var(--card-dark);
+    margin-left: -8px;
+}
+
+.file-type-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+}
+
+[dir="rtl"] .me-2 {
+    margin-left: 0.5rem !important;
+    margin-right: 0 !important;
+}
+
+[dir="rtl"] .avatar-group img {
+    margin-right: -8px;
+    margin-left: 0;
+}

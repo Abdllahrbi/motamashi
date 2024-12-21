@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row g-4">
+        <!-- Left Sidebar -->
+        <div class="col-lg-3">
+            <!-- Calendar Widget -->
+            <div class="calendar-widget mb-4 fade-in">
+                <h6 class="text-secondary mb-3">{{ current_month }}, {{ current_year }}</h6>
+                <div class="calendar-date">{{ current_date.day }}</div>
+                <div class="text-secondary">{{ current_date.strftime('%A') }}</div>
+            </div>
+
+            <!-- Today's Tasks -->
+            <div class="card mb-4 fade-in">
+                <div class="card-body">
+                    <h6 class="card-title text-secondary mb-4">
+                        {% if lang == 'ar' %}مهام اليوم{% else %}Today's Tasks{% endif %}
+                    </h6>
+                    {% for task in tasks %}
+                    <div class="task-item d-flex align-items-center mb-3">
+                        <div class="progress-circle me-3" data-progress="{{ task.progress }}">
+                            <span class="progress-text">{{ task.progress }}%</span>
+                        </div>
+                        <div>
+                            <h6 class="mb-0">{{ task.title }}</h6>
+                            <small class="text-secondary">{{ task.deadline }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-6">
+            <!-- Search Box -->
+            <div class="mb-4 fade-in">
+                <input type="text" class="search-box" placeholder="{% if lang == 'ar' %}ابحث عن المهام...{% else %}Search tasks...{% endif %}">
+            </div>
+
+            <!-- Task Cards -->
+            <div class="row g-4">
+                <!-- Task Progress Card -->
+                <div class="col-md-6">
+                    <div class="task-card purple fade-in">
+                        <h6 class="mb-3">{% if lang == 'ar' %}تقدم المهام{% else %}Task Progress{% endif %}</h6>
+                        <div class="d-flex align-items-center">
+                            <div class="progress-circle me-3" data-progress="{{ progress_percentage }}">
+                                <span class="progress-text">{{ progress_percentage }}%</span>
+                            </div>
+                            <div>
+                                <h4 class="mb-0">{{ tasks_completed }}/{{ total_tasks }}</h4>
+                                <small>{% if lang == 'ar' %}المهام المكتملة{% else %}Tasks Completed{% endif %}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Priority Tasks Card -->
+                <div class="col-md-6">
+                    <div class="task-card blue fade-in">
+                        <h6 class="mb-3">{% if lang == 'ar' %}المهام ذات الأولوية{% else %}Priority Tasks{% endif %}</h6>
+                        <div class="subtask-list">
+                            {% for task in tasks[:3] %}
+                            <div class="subtask-item {% if task.completed %}completed{% endif %}">
+                                <span class="me-2">•</span>
+                                {{ task.title }}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="col-lg-3">
+            <!-- Task Details -->
+            <div class="card fade-in">
+                <div class="card-body">
+                    <h6 class="card-title mb-4">{% if lang == 'ar' %}تفاصيل المهمة{% else %}Task Details{% endif %}</h6>
+                    <div class="task-details">
+                        {% if tasks %}
+                        {% set task = tasks[0] %}
+                        <h5 class="mb-3">{{ task.title }}</h5>
+                        <p class="text-secondary mb-4">{{ task.description }}</p>
+                        
+                        <div class="mb-4">
+                            <h6 class="text-secondary mb-2">{% if lang == 'ar' %}الموعد النهائي{% else %}Deadline{% endif %}</h6>
+                            <p class="mb-0">{{ task.deadline }}</p>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <h6 class="text-secondary mb-2">{% if lang == 'ar' %}التقدم{% else %}Progress{% endif %}</h6>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ task.progress }}%" aria-valuenow="{{ task.progress }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        {% else %}
+                        <p class="text-secondary">{% if lang == 'ar' %}لا توجد مهام مختارة{% else %}No task selected{% endif %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Initialize progress circles
+    document.querySelectorAll('.progress-circle').forEach(circle => {
+        const progress = circle.getAttribute('data-progress');
+        const radius = 18;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (progress / 100) * circumference;
+        
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('width', '40');
+        svg.setAttribute('height', '40');
+        
+        const circle_bg = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle_bg.setAttribute('cx', '20');
+        circle_bg.setAttribute('cy', '20');
+        circle_bg.setAttribute('r', radius);
+        circle_bg.setAttribute('fill', 'none');
+        circle_bg.setAttribute('stroke', 'rgba(255,255,255,0.2)');
+        circle_bg.setAttribute('stroke-width', '3');
+        
+        const circle_progress = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        circle_progress.setAttribute('cx', '20');
+        circle_progress.setAttribute('cy', '20');
+        circle_progress.setAttribute('r', radius);
+        circle_progress.setAttribute('fill', 'none');
+        circle_progress.setAttribute('stroke', 'white');
+        circle_progress.setAttribute('stroke-width', '3');
+        circle_progress.setAttribute('stroke-dasharray', circumference);
+        circle_progress.setAttribute('stroke-dashoffset', offset);
+        circle_progress.setAttribute('transform', 'rotate(-90 20 20)');
+        
+        svg.appendChild(circle_bg);
+        svg.appendChild(circle_progress);
+        circle.appendChild(svg);
+        
+        const text = document.createElement('span');
+        text.classList.add('progress-text');
+        text.style.position = 'absolute';
+        text.style.fontSize = '12px';
+        text.textContent = progress + '%';
+        circle.appendChild(text);
+    });
+</script>
+{% endblock %}

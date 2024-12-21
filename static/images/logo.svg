@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="50" viewBox="0 0 200 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- متماشي Logo -->
+    <style>
+        @font-face {
+            font-family: 'Arabic';
+            src: local('Arial');
+        }
+    </style>
+    
+    <!-- Arabic Text -->
+    <text x="10" y="35" font-family="Arabic" font-size="35" font-weight="bold" fill="#8F00FF">متماشي</text>
+    
+    <!-- English Text -->
+    <text x="10" y="45" font-family="Arial" font-size="14" font-weight="bold" fill="#8F00FF">MOTAMASHI</text>
+    
+    <!-- Lightning Icon -->
+    <g transform="translate(160, 15)">
+        <rect x="0" y="0" width="30" height="30" rx="8" fill="#8F00FF"/>
+        <path d="M15 5 L10 15 H15 L13 25 L20 15 H15 L17 5" fill="white"/>
+    </g>
+</svg>

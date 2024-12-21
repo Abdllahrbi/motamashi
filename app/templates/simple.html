@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}الرئيسية{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="welcome-card">
+                <h1 class="welcome-title">مرحباً بك في متماشي</h1>
+                <p class="welcome-date">{{ current_date.strftime('%Y-%m-%d') }}</p>
+                <div class="welcome-features">
+                    <div class="feature-item">
+                        <i class="bi bi-list-check"></i>
+                        <h3>إدارة المهام</h3>
+                        <p>نظم مهامك بسهولة وفعالية</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="bi bi-calendar-check"></i>
+                        <h3>تقويم ذكي</h3>
+                        <p>تتبع مواعيدك ومهامك</p>
+                    </div>
+                    <div class="feature-item">
+                        <i class="bi bi-graph-up"></i>
+                        <h3>تحليلات متقدمة</h3>
+                        <p>تابع تقدمك وإنجازاتك</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

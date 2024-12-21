@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body p-5">
+                    <h2 class="text-center mb-4">
+                        {% if lang == 'ar' %}
+                        إنشاء حساب جديد
+                        {% else %}
+                        Create New Account
+                        {% endif %}
+                    </h2>
+                    
+                    <form method="POST" action="/register">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">
+                                {% if lang == 'ar' %}
+                                البريد الإلكتروني
+                                {% else %}
+                                Email Address
+                                {% endif %}
+                            </label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="password" class="form-label">
+                                {% if lang == 'ar' %}
+                                كلمة المرور
+                                {% else %}
+                                Password
+                                {% endif %}
+                            </label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="confirm_password" class="form-label">
+                                {% if lang == 'ar' %}
+                                تأكيد كلمة المرور
+                                {% else %}
+                                Confirm Password
+                                {% endif %}
+                            </label>
+                            <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary w-100">
+                            {% if lang == 'ar' %}
+                            إنشاء حساب
+                            {% else %}
+                            Create Account
+                            {% endif %}
+                        </button>
+                    </form>
+                    
+                    <div class="text-center mt-4">
+                        <p>
+                            {% if lang == 'ar' %}
+                            لديك حساب بالفعل؟ <a href="/login">تسجيل الدخول</a>
+                            {% else %}
+                            Already have an account? <a href="/login">Login</a>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

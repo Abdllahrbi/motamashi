@@ -1,0 +1,339 @@
+:root {
+    /* الألوان الرئيسية */
+    --primary: #6C5CE7;
+    --primary-light: #A78BFA;
+    --secondary: #00B894;
+    --success: #10B981;
+    --danger: #FF7675;
+    --warning: #FDCB6E;
+    --info: #3B82F6;
+    
+    /* ألوان الخلفية */
+    --bg-light: #F9FAFB;
+    --bg-dark: #1E1E1E;
+    --card-light: #FFFFFF;
+    --card-dark: #2D2D2D;
+    
+    /* ألوان النصوص */
+    --text-light: #F9FAFB;
+    --text-dark: #1E293B;
+    --text-muted: #64748B;
+}
+
+/* النمط الأساسي */
+body {
+    font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h1 {
+    color: #6C5CE7;
+    margin-bottom: 20px;
+}
+
+.date {
+    color: #666;
+    font-size: 1.2em;
+}
+
+/* البطاقات */
+.card {
+    background: var(--card-light);
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* التقويم */
+.calendar-widget {
+    background: var(--card-light);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+}
+
+.calendar-date {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+/* شريط التقدم */
+.progress-circle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+}
+
+.progress-ring-circle {
+    stroke: var(--primary);
+    stroke-width: 3;
+    fill: transparent;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+    transition: stroke-dashoffset 0.3s ease;
+}
+
+.progress-ring-circle-bg {
+    stroke: #E5E7EB;
+    stroke-width: 3;
+    fill: transparent;
+}
+
+/* التأثيرات الحركية */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* الأزرار */
+.btn-primary {
+    background-color: var(--primary);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+/* مربع البحث */
+.search-box {
+    width: 100%;
+    padding: 12px 20px;
+    border: 1px solid #E5E7EB;
+    border-radius: 10px;
+    background: var(--card-light);
+    transition: all 0.3s ease;
+}
+
+.search-box:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px var(--primary-light);
+}
+
+/* Task Cards */
+.task-card {
+    padding: 1.5rem;
+    border-radius: 16px;
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.task-card.purple {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+}
+
+.task-card.blue {
+    background: linear-gradient(135deg, var(--info) 0%, #2563EB 100%);
+}
+
+.task-card.green {
+    background: linear-gradient(135deg, var(--success) 0%, #059669 100%);
+}
+
+.task-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Subtasks */
+.subtask-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.subtask-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: var(--card-dark);
+    margin-bottom: 10px;
+    color: var(--text-muted);
+}
+
+.subtask-item.completed {
+    color: var(--text-dark);
+    text-decoration: line-through;
+}
+
+/* RTL Support */
+[dir="rtl"] {
+    direction: rtl;
+    text-align: right;
+}
+
+[dir="rtl"] .me-2 {
+    margin-left: 0.5rem !important;
+    margin-right: 0 !important;
+}
+
+[dir="rtl"] .ms-2 {
+    margin-right: 0.5rem !important;
+    margin-left: 0 !important;
+}
+
+[dir="rtl"] .language-switcher {
+    right: auto;
+    left: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .task-card {
+        margin-bottom: 1rem;
+    }
+    
+    .calendar-widget {
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* شريط التنقل */
+.navbar {
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+.navbar-brand i {
+    margin-left: 0.5rem;
+}
+
+.nav-link {
+    color: var(--text-dark);
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+.nav-link i {
+    margin-left: 0.5rem;
+}
+
+/* بطاقة الترحيب */
+.welcome-card {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.welcome-title {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.welcome-date {
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+/* ميزات */
+.welcome-features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.feature-item {
+    padding: 1.5rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+
+.feature-item i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+.feature-item h3 {
+    color: var(--text-dark);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.feature-item p {
+    color: var(--text-muted);
+}
+
+/* الفوتر */
+.footer {
+    background-color: white;
+    border-top: 1px solid #E5E7EB;
+    padding: 1.5rem 0;
+}
+
+/* تحسينات للجوال */
+@media (max-width: 768px) {
+    .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .welcome-features {
+        grid-template-columns: 1fr;
+    }
+    
+    .feature-item {
+        padding: 1rem;
+    }
+}

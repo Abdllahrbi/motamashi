@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-5">
+        {% if lang == 'ar' %}
+        مميزات متماشي
+        {% else %}
+        Motamashi Features
+        {% endif %}
+    </h2>
+    
+    <div class="row g-4">
+        <!-- Feature 1 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-tasks fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="card-title h5">
+                        {% if lang == 'ar' %}
+                        إدارة المهام الذكية
+                        {% else %}
+                        Smart Task Management
+                        {% endif %}
+                    </h3>
+                    <p class="card-text">
+                        {% if lang == 'ar' %}
+                        نظم مهامك بسهولة وذكاء مع خاصية التصنيف التلقائي والتذكيرات الذكية
+                        {% else %}
+                        Organize your tasks easily with automatic categorization and smart reminders
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature 2 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-clock fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="card-title h5">
+                        {% if lang == 'ar' %}
+                        إدارة الوقت
+                        {% else %}
+                        Time Management
+                        {% endif %}
+                    </h3>
+                    <p class="card-text">
+                        {% if lang == 'ar' %}
+                        تتبع وقتك وحسن إنتاجيتك مع أدوات إدارة الوقت المتقدمة
+                        {% else %}
+                        Track your time and improve productivity with advanced time management tools
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature 3 -->
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="feature-icon mb-3">
+                        <i class="fas fa-brain fa-2x text-primary"></i>
+                    </div>
+                    <h3 class="card-title h5">
+                        {% if lang == 'ar' %}
+                        الذكاء الاصطناعي
+                        {% else %}
+                        Artificial Intelligence
+                        {% endif %}
+                    </h3>
+                    <p class="card-text">
+                        {% if lang == 'ar' %}
+                        استفد من قوة الذكاء الاصطناعي لتحسين إدارة مهامك وتنظيم وقتك
+                        {% else %}
+                        Leverage the power of AI to enhance your task management and time organization
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_css %}
+<style>
+    .feature-icon {
+        color: var(--brand-blue);
+    }
+    
+    .card {
+        transition: transform 0.2s;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://kit.fontawesome.com/your-kit-code.js" crossorigin="anonymous"></script>
+{% endblock %}
+{% endblock %}
