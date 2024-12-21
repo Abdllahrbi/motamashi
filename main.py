@@ -10,7 +10,14 @@ import pathlib
 app = FastAPI()
 
 # الحصول على المسار المطلق للملفات
-BASE_DIR = pathlib.Path(__file__).parent.absolute()
+import pathlib
+import os
+
+if os.environ.get('RENDER'):
+    BASE_DIR = pathlib.Path("/opt/render/project/src/app")
+else:
+    BASE_DIR = pathlib.Path(__file__).parent
+
 TEMPLATES_DIR = str(BASE_DIR / "templates")
 STATIC_DIR = str(BASE_DIR / "static")
 
