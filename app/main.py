@@ -45,9 +45,9 @@ async def debug_info():
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     try:
-        print("Attempting to render index.html")
+        print("Attempting to render home.html")
         return templates.TemplateResponse(
-            "index.html",
+            "home.html",
             {
                 "request": request,
                 "title": "متماشي - نظام إدارة المهام",
