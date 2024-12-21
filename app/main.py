@@ -14,9 +14,9 @@ import pathlib
 import os
 
 if os.environ.get('RENDER'):
-    BASE_DIR = pathlib.Path("/opt/render/project/src/app")
+    BASE_DIR = pathlib.Path("/opt/render/project/src")
 else:
-    BASE_DIR = pathlib.Path(__file__).parent
+    BASE_DIR = pathlib.Path(__file__).parent.parent
 
 TEMPLATES_DIR = str(BASE_DIR / "templates")
 STATIC_DIR = str(BASE_DIR / "static")
