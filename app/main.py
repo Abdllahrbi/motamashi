@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -41,6 +41,13 @@ async def debug_info():
         "static_files": os.listdir(STATIC_DIR) if os.path.exists(STATIC_DIR) else []
     }
 
+# قائمة المهام (مؤقتاً في الذاكرة)
+tasks = [
+    {"id": 1, "title": "إنشاء قاعدة البيانات", "status": "completed"},
+    {"id": 2, "title": "تصميم واجهة المستخدم", "status": "in_progress"},
+    {"id": 3, "title": "كتابة الوثائق", "status": "pending"}
+]
+
 # الصفحة الرئيسية
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -51,29 +58,12 @@ async def home(request: Request):
             {
                 "request": request,
                 "title": "متماشي - نظام إدارة المهام",
-                "tasks": [
-                    {"id": 1, "title": "إنشاء قاعدة البيانات", "status": "completed"},
-                    {"id": 2, "title": "تصميم واجهة المستخدم", "status": "in_progress"},
-                    {"id": 3, "title": "كتابة الوثائق", "status": "pending"}
-                ]
+                "tasks": tasks
             }
         )
     except Exception as e:
-        print(f"Error in home route: {str(e)}")
-        print(traceback.format_exc())
-        return HTMLResponse(
-            content=f"""
-            <html dir="rtl" lang="ar">
-                <head><title>خطأ</title></head>
-                <body>
-                    <h1>خطأ في النظام</h1>
-                    <p>نوع الخطأ: {str(e)}</p>
-                    <pre>{traceback.format_exc()}</pre>
-                </body>
-            </html>
-            """,
-            status_code=500
-        )
+        print(f"Error: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # صفحة المهام
 @app.get("/tasks", response_class=HTMLResponse)
@@ -84,11 +74,7 @@ async def tasks(request: Request):
             {
                 "request": request,
                 "title": "المهام",
-                "tasks": [
-                    {"id": 1, "title": "إنشاء قاعدة البيانات", "status": "completed"},
-                    {"id": 2, "title": "تصميم واجهة المستخدم", "status": "in_progress"},
-                    {"id": 3, "title": "كتابة الوثائق", "status": "pending"}
-                ]
+                "tasks": tasks
             }
         )
     except Exception as e:
@@ -102,13 +88,34 @@ async def tasks(request: Request):
 # واجهة برمجة التطبيقات للمهام
 @app.get("/api/tasks")
 async def get_tasks():
-    try:
-        return [
-            {"id": 1, "title": "إنشاء قاعدة البيانات", "status": "completed"},
-            {"id": 2, "title": "تصميم واجهة المستخدم", "status": "in_progress"},
-            {"id": 3, "title": "كتابة الوثائق", "status": "pending"}
-        ]
-    except Exception as e:
-        print(f"Error in API route: {str(e)}")
-        print(traceback.format_exc())
-        return {"error": str(e), "traceback": traceback.format_exc()}
+    return {"tasks": tasks}
+
+@app.post("/api/tasks")
+async def create_task(task: dict):
+    task_id = max([t["id"] for t in tasks]) + 1
+    new_task = {
+        "id": task_id,
+        "title": task["title"],
+        "status": "pending"
+    }
+    tasks.append(new_task)
+    return {"success": True, "task": new_task}
+
+@app.put("/api/tasks/{task_id}")
+async def update_task(task_id: int, task_update: dict):
+    for task in tasks:
+        if task["id"] == task_id:
+            if "status" in task_update:
+                task["status"] = task_update["status"]
+            if "title" in task_update:
+                task["title"] = task_update["title"]
+            return {"success": True, "task": task}
+    raise HTTPException(status_code=404, detail="Task not found")
+
+@app.delete("/api/tasks/{task_id}")
+async def delete_task(task_id: int):
+    for i, task in enumerate(tasks):
+        if task["id"] == task_id:
+            tasks.pop(i)
+            return {"success": True}
+    raise HTTPException(status_code=404, detail="Task not found")
